@@ -35,7 +35,7 @@ class Player:
         temp_point = Point(vec2d(self.pos[0], self.pos[1]), self.player_type)
         self.path.append(temp_point)
 
-    def update(self, other_player):
+    def update(self, other_player, width, height):
         for point in other_player.path:
             if (self.pos - point.pos).length < 10:
                 self.alive = False
@@ -59,12 +59,12 @@ class Player:
             self.image = pygame.transform.rotate(self.base_pic, 270)
             
         if self.pos[0] < 0:
-            self.pos[0] = 800
-        if self.pos[0] > 800:
+            self.pos[0] = width
+        if self.pos[0] > width:
             self.pos[0] = 0
         if self.pos[1] < 0:
-            self.pos[1] = 600
-        if self.pos[1] > 600:
+            self.pos[1] = height
+        if self.pos[1] > height:
             self.pos[1] = 0
 
     def draw(self, screen):  
@@ -86,18 +86,16 @@ class Starter(PygameHelper):
         
         self.background = pygame.image.load("background.png")
         self.win = pygame.image.load("win.png")
-
-        self.player_one = Player(vec2d(100, 200), 0, 3)
-        self.player_two = Player(vec2d(100, 300), 1, 3)
+		
         self.game_speed = 3
+        self.player_one = Player(vec2d(100, 200), 0, self.game_speed)
+        self.player_two = Player(vec2d(100, 300), 1, self.game_speed)
         
-
         
     def update(self):
-        if self.player_one.alive:
-            self.player_one.update(self.player_two)
-        if self.player_two.alive:
-            self.player_two.update(self.player_one)
+        if self.player_one.alive and self.player_two.alive:
+            self.player_one.update(self.player_two, self.w, self.h)
+            self.player_two.update(self.player_one, self.w, self.h)
         
     def keyUp(self, key):
         if key == 100:
@@ -136,7 +134,6 @@ class Starter(PygameHelper):
             self.player_two.move[3] = 1
         
     def mouseUp(self, button, pos):
-        print(button)
         if not self.player_one.alive or not self.player_two.alive:
             if (pos - vec2d(548, 355)).length < 18 and button == 1:
                 self.game_speed += 1
