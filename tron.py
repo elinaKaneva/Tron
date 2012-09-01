@@ -44,83 +44,77 @@ class Menu:
             elif self.selected == 4:
                 self.screen = 3
                 self.selected = 0
+                
         elif self.screen == 2:
-            if self.selected == 31 and self.speed < 9:
+            if self.selected == 201 and self.speed < 9:
                 self.speed += 1
-            elif self.selected == 32 and self.speed > 0:
+            elif self.selected == 202 and self.speed > 0:
                 self.speed -= 1
                 
-            elif self.selected == 11:
+            elif self.selected == 211:
                 if self.player_one_bike == 3:
                     self.player_one_bike = 0
                 self.player_one_bike += 1
                 self.load_pics()
-                
-            elif self.selected == 12:
+            elif self.selected == 212:
                 if self.player_one_bike == 1:
                     self.player_one_bike = 4
                 self.player_one_bike -= 1
                 self.load_pics()
                 
-            elif self.selected == 21:
+            elif self.selected == 221:
                 if self.player_two_bike == 3:
                     self.player_two_bike = 0
                 self.player_two_bike += 1
                 self.load_pics()
-            elif self.selected == 22:
+            elif self.selected == 222:
                 if self.player_two_bike == 1:
                     self.player_two_bike = 4
                 self.player_two_bike -= 1
                 self.load_pics()
-            elif self.selected == 5:
+                
+            elif self.selected == 200:
                 self.screen = 1
                 self.selected = 0
                 game.player_colors = [self.player_one_bike, self.player_two_bike]
                 game.game_speed = 3 + self.speed
                 game.init_players()
+                
         elif self.screen == 3:
-            if self.selected == 1:
+            if self.selected == 300:
                 self.screen = 1
                 self.selected = 0
 
     def check_selected(self, position):
         self.selected = 0
+        x = position[0]
+        y = position[1]
+        all_buttons = [1, 2, 3, 4, 211, 212, 221, 222, 201, 202, 200, 300]     
+        x_scr1 = [[120, 341], [160, 381], [200, 421], [670, 741]]
+        x_scr2 = [[74, 110], [219, 255], [540, 576], [683, 719], [380, 416], [380, 416], [300, 525]]
+        x_scr3 = [300, 525]
+        y_scr1 = [[280, 341], [380, 441], [480, 541], [480, 541]]
+        y_scr2 = [[204, 240], [204, 240], [204, 240], [204, 240], [223, 259], [367, 403], [513, 572]]
+        y_scr3 = [513, 572]
+
         if self.screen == 1:
-            if position[0] in range(120, 341) and position[1] in range(280, 341):
-                self.selected = 1
-            elif position[0] in range(160, 381) and position[1] in range(380, 441):
-                self.selected = 2
-            elif position[0] in range(200, 421) and position[1] in range(480, 541):
-                self.selected = 3
-            elif position[0] in range(670, 741) and position[1] in range(480, 541):
-                self.selected = 4
-                
+            for which in range(len(x_scr1)):
+                if x in range(x_scr1[which][0], x_scr1[which][1]) and y in range(y_scr1[which][0], y_scr1[which][1]):
+                    self.selected = all_buttons[which]
         elif self.screen == 2:
-            if position[0] in range(74, 110) and position[1] in range(204, 240):
-                self.selected = 11
-            elif position[0] in range(219, 255) and position[1] in range(204, 240):
-                self.selected = 12
-            elif position[0] in range(540, 576) and position[1] in range(204, 240):
-                self.selected = 21
-            elif position[0] in range(683, 719) and position[1] in range(204, 240):
-                self.selected = 22
-            elif position[0] in range(380, 416) and position[1] in range(223, 259):
-                self.selected = 31
-            elif position[0] in range(380, 416) and position[1] in range(367, 403):
-                self.selected = 32
-            elif position[0] in range(300, 525) and position[1] in range(513, 572):
-                self.selected = 5
-                
+            for which in range(len(x_scr2)):
+                if x in range(x_scr2[which][0], x_scr2[which][1]) and y in range(y_scr2[which][0], y_scr2[which][1]):
+                    self.selected = all_buttons[4:][which]
         elif self.screen == 3:
-            if position[0] in range(300, 525) and position[1] in range(513, 572):
-                self.selected = 1
-                
+            if x in range(x_scr3[0], x_scr3[1]) and y in range(y_scr3[0],y_scr3[1]):
+                self.selected = all_buttons[11]
+
     def draw(self, screen):
         if self.screen == 1:
             screen.blit(self.main_menu, (0, 0))
             if self.selected in [1, 2, 3]:
                 screen.blit(self.button_glow, (103 + self.selected * 40, 180 + self.selected * 100))
-            if self.selected == 4:
+            elif self.selected == 4:
                 screen.blit(self.button_info_glow, (677, 480))
                 
         elif self.screen == 2:
@@ -130,12 +124,12 @@ class Menu:
             screen.blit(self.player_one_pic, (157, 210))
             screen.blit(self.player_two_pic, (622, 210))
 
-            if self.selected == 5:
+            if self.selected == 200:
                 screen.blit(self.button_glow, (323, 513))
                 
         elif self.screen == 3:
             screen.blit(self.info_menu, (0, 0))
-            if self.selected == 1:
+            if self.selected == 300:
                 screen.blit(self.button_glow, (323, 513))
             
 
@@ -216,8 +210,8 @@ class Starter(PygameHelper):
         self.background = pygame.image.load("background.png")
         self.win = pygame.image.load("win.png")
 
-        self.keysP1 = [100, 97, 119, 115]
-        self.keysP2 = [275, 276, 273, 274]
+        self.p1keys = [100, 97, 119, 115]
+        self.p2keys = [275, 276, 273, 274]
 
         self.menu = Menu()
         self.player_colors = [1, 1]
@@ -236,17 +230,17 @@ class Starter(PygameHelper):
         
     def keyUp(self, key):
         if not self.menu.screen:
-            if key in self.keysP1:
-                self.player_one.move[self.keysP1.index(key)] = 0
-            if key in self.keysP2:
-                self.player_two.move[self.keysP2.index(key)] = 0
+            if key in self.p1keys:
+                self.player_one.move[self.p1keys.index(key)] = 0
+            if key in self.p2keys:
+                self.player_two.move[self.p2keys.index(key)] = 0
      
     def keyDown(self, key):
         if not self.menu.screen:
-            if key in self.keysP1:
-                self.player_one.move[self.keysP1.index(key)] = 1
-            if key in self.keysP2:
-                self.player_two.move[self.keysP2.index(key)] = 1
+            if key in self.p1keys:
+                self.player_one.move[self.p1keys.index(key)] = 1
+            if key in self.p2keys:
+                self.player_two.move[self.p2keys.index(key)] = 1
             if key == 112:
                 self.menu.screen = 1
 
