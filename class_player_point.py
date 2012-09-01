@@ -10,7 +10,9 @@ import os
 class Point:
     def __init__(self, position, player_color, player_type):
         self.position = position
-        self.pic = pygame.image.load(os.path.join("pics", "bike_" + str(player_type + 1) + "_" + str(player_color) + "_l.png"))
+        self.pic = pygame.image.load(
+            os.path.join("pics", "bike_" + str(player_type + 1) +
+                         "_" + str(player_color) + "_l.png"))
 
     def draw(self, screen):
         screen.blit(self.pic, (int(self.position[0] - 4), int(self.position[1] - 4)))
@@ -25,13 +27,16 @@ class Player:
         self.alive = True
         self.speed = speed
 
-        self.base_pic = pygame.image.load(os.path.join("pics", "bike_" + str(self.player_type + 1) + "_" + str(self.player_color) + ".png"))
+        self.base_pic = pygame.image.load(
+            os.path.join("pics", "bike_" + str(self.player_type + 1) +
+                         "_" + str(self.player_color) + ".png"))
 
         self.image = self.base_pic
         self.back_pic = pygame.image.load(os.path.join("pics", "back.png"))
 
     def add_point(self):
-        temp_point = Point(vec2d(self.position[0], self.position[1]), self.player_color, self.player_type)
+        temp_point = Point(vec2d(self.position[0], self.position[1]),
+                           self.player_color, self.player_type)
         self.trace.append(temp_point)
 
     def update(self, other_player, width, height):
@@ -70,7 +75,9 @@ class Player:
             for point in self.trace:
                 if not previous_point.position == point.position:
                     point.draw(screen)
-                    screen.blit(self.back_pic, (((point.position[0]//20) - 1) * 20,
-                                                (((point.position[1]//20) - 1) * 20)))
+                    screen.blit(self.back_pic,
+                                (((point.position[0]//20) - 1) * 20,
+                                 (((point.position[1]//20) - 1) * 20)))
                 previous_point = point
-        screen.blit(self.image, (int(self.position[0] - 9), int(self.position[1] - 9)))
+        screen.blit(self.image, (int(self.position[0] - 9),
+                                 int(self.position[1] - 9)))
