@@ -115,17 +115,19 @@ class Menu:
 
         if self.screen == 1:
             for which in range(len(x_scr1)):
-                if x in range(x_scr1[which][0], x_scr1[which][1])
-                and y in range(y_scr1[which][0], y_scr1[which][1]):
+                if x in range(
+                    x_scr1[which][0], x_scr1[which][1]) and y in range(
+                        y_scr1[which][0], y_scr1[which][1]):
                     self.selected = all_buttons[which]
         elif self.screen == 2:
             for which in range(len(x_scr2)):
-                if x in range(x_scr2[which][0], x_scr2[which][1])
-                and y in range(y_scr2[which][0], y_scr2[which][1]):
+                if x in range(
+                    x_scr2[which][0], x_scr2[which][1]) and y in range(
+                        y_scr2[which][0], y_scr2[which][1]):
                     self.selected = all_buttons[4:][which]
         elif self.screen == 3:
-            if x in range(x_scr3[0], x_scr3[1])
-            and y in range(y_scr3[0],y_scr3[1]):
+            if x in range(
+                x_scr3[0], x_scr3[1]) and y in range(y_scr3[0],y_scr3[1]):
                 self.selected = all_buttons[11]
 
     def draw(self, screen):
