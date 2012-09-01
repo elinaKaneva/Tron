@@ -4,18 +4,20 @@ from pygame.locals import *
 from vec2d import *
 from math import e, pi, cos, sin, sqrt
 from random import uniform
+from class_player_point import *
+import os
 
 class Menu:
     def __init__(self):
-        self.main_menu = pygame.image.load("main_menu.png")
-        self.button_glow = pygame.image.load("button_glow.png")
-        self.button_info_glow = pygame.image.load("button_info_glow.png")
+        self.main_menu = pygame.image.load(os.path.join("pics", "main_menu.png"))
+        self.button_glow = pygame.image.load(os.path.join("pics", "button_glow.png"))
+        self.button_info_glow = pygame.image.load(os.path.join("pics", "button_info_glow.png"))
 
-        self.options_menu = pygame.image.load("options_menu.png")
-        self.options_back_liquid = pygame.image.load("options_back_liquid.png")
-        self.options_liquid = pygame.image.load("options_liquid.png")
+        self.options_menu = pygame.image.load(os.path.join("pics", "options_menu.png"))
+        self.options_back_liquid = pygame.image.load(os.path.join("pics", "options_back_liquid.png"))
+        self.options_liquid = pygame.image.load(os.path.join("pics", "options_liquid.png"))
 
-        self.info_menu = pygame.image.load("info_menu.png")
+        self.info_menu = pygame.image.load(os.path.join("pics", "info_menu.png"))
 
         self.screen = 1
         self.selected = 0
@@ -25,9 +27,9 @@ class Menu:
         self.load_pics()
 
     def load_pics(self):
-        self.player_one_pic = pygame.image.load("bike_1_" + str(self.player_one_bike) + ".png")
+        self.player_one_pic = pygame.image.load(os.path.join("pics", "bike_1_" + str(self.player_one_bike) + ".png"))
         self.player_one_pic = pygame.transform.rotate(self.player_one_pic, 90)
-        self.player_two_pic = pygame.image.load("bike_2_" + str(self.player_two_bike) + ".png")
+        self.player_two_pic = pygame.image.load(os.path.join("pics", "bike_2_" + str(self.player_two_bike) + ".png"))
         self.player_two_pic = pygame.transform.rotate(self.player_two_pic, 90)
 
     def click(self, game, button, position):

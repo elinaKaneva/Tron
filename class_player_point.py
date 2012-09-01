@@ -5,11 +5,12 @@ from vec2d import *
 from math import e, pi, cos, sin, sqrt
 from random import uniform
 from class_menu import *
+import os
 
 class Point:
     def __init__(self, position, player_color, player_type):
         self.position = position
-        self.pic = pygame.image.load("bike_" + str(player_type + 1) + "_" + str(player_color) + "_l.png")
+        self.pic = pygame.image.load(os.path.join("pics", "bike_" + str(player_type + 1) + "_" + str(player_color) + "_l.png"))
 
     def draw(self, screen):
         screen.blit(self.pic, (int(self.position[0] - 4), int(self.position[1] - 4)))
@@ -24,10 +25,10 @@ class Player:
         self.alive = True
         self.speed = speed
 
-        self.base_pic = self.player_one_pic = pygame.image.load("bike_" + str(self.player_type + 1) + "_" + str(self.player_color) + ".png")
+        self.base_pic = pygame.image.load(os.path.join("pics", "bike_" + str(self.player_type + 1) + "_" + str(self.player_color) + ".png"))
 
         self.image = self.base_pic
-        self.back_pic = pygame.image.load("back.png")
+        self.back_pic = pygame.image.load(os.path.join("pics", "back.png"))
 
     def add_point(self):
         temp_point = Point(vec2d(self.position[0], self.position[1]), self.player_color, self.player_type)

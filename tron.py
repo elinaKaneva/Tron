@@ -6,14 +6,16 @@ from math import e, pi, cos, sin, sqrt
 from random import uniform
 from class_menu import *
 from class_player_point import *
+import os
 
 class Starter(PygameHelper):
     def __init__(self):
         self.w, self.h = 800, 600
         PygameHelper.__init__(self, size=(self.w, self.h), fill=((255,255,255)))
         
-        self.background = pygame.image.load("background.png")
-        self.win = pygame.image.load("win.png")
+        #self.background = pygame.image.load("pics\background.png")
+        self.background = pygame.image.load(os.path.join("pics", "background.png"))
+        self.win = pygame.image.load(os.path.join("pics", "win.png"))
 
         self.p1keys = [100, 97, 119, 115]
         self.p2keys = [275, 276, 273, 274]
