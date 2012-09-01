@@ -86,7 +86,10 @@ class Starter(PygameHelper):
         
         self.background = pygame.image.load("background.png")
         self.win = pygame.image.load("win.png")
-		
+
+        self.keysP1 = [100, 97, 119, 115]
+        self.keysP2 = [275, 276, 273, 274]
+        
         self.game_speed = 3
         self.player_one = Player(vec2d(100, 200), 0, self.game_speed)
         self.player_two = Player(vec2d(100, 300), 1, self.game_speed)
@@ -98,40 +101,16 @@ class Starter(PygameHelper):
             self.player_two.update(self.player_one, self.w, self.h)
         
     def keyUp(self, key):
-        if key == 100:
-            self.player_one.move[0] = 0
-        if key == 97:
-            self.player_one.move[1] = 0
-        if key == 119:
-            self.player_one.move[2] = 0
-        if key == 115:
-            self.player_one.move[3] = 0
-        if key == 275:
-            self.player_two.move[0] = 0
-        if key == 276:
-            self.player_two.move[1] = 0
-        if key == 273:
-            self.player_two.move[2] = 0
-        if key == 274:
-            self.player_two.move[3] = 0
+        if key in self.keysP1:
+            self.player_one.move[self.keysP1.index(key)] = 0
+        if key in self.keysP2:
+            self.player_two.move[self.keysP2.index(key)] = 0
      
     def keyDown(self, key):
-        if key == 100:
-            self.player_one.move[0] = 1
-        if key == 97:
-            self.player_one.move[1] = 1
-        if key == 119:
-            self.player_one.move[2] = 1
-        if key == 115:
-            self.player_one.move[3] = 1
-        if key == 275:
-            self.player_two.move[0] = 1
-        if key == 276:
-            self.player_two.move[1] = 1
-        if key == 273:
-            self.player_two.move[2] = 1
-        if key == 274:
-            self.player_two.move[3] = 1
+        if key in self.keysP1:
+            self.player_one.move[self.keysP1.index(key)] = 1
+        if key in self.keysP2:
+            self.player_two.move[self.keysP2.index(key)] = 1
         
     def mouseUp(self, button, pos):
         if not self.player_one.alive or not self.player_two.alive:
