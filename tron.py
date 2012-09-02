@@ -118,7 +118,7 @@ class Starter(PygameHelper):
                                              self.player_colors[1], 1,
                                              self.game_speed)
         else:
-            self.menu.click(self, button, position)
+            self.menu.click(self, position)
 
     def mouseMotion(self, buttons, position, rel):
         ''' mouseMotion is used for the buttons in the menu only.
@@ -140,6 +140,7 @@ class Starter(PygameHelper):
                 if not eval("self.player_" + motor + ".alive"):
                     self.screen.blit(self.win, (150, 130))
                     if live.index(motor):
+                        print(live.index(motor))
                         pygame.draw.circle(self.screen,
                                    self.p1colors[self.player_colors[0] - 1],
                                    self.win_cicle_center, 36, 3)
@@ -147,6 +148,7 @@ class Starter(PygameHelper):
                         pygame.draw.circle(self.screen,
                                    self.p2colors[self.player_colors[1] - 1],
                                    self.win_cicle_center, 36, 3)
+                    break
         else:
             self.menu.draw(self.screen)
         

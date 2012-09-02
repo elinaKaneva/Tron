@@ -88,6 +88,8 @@ class Player:
             previous_point = self.trace[-1]
             for point in self.trace:
                 if not previous_point.position == point.position:
+                    ''' This is the actual drawing of the trace.
+                        And this check prevent for oerlapping points in it.'''
                     point.draw(screen)
                     screen.blit(self.back_pic,
                                 (((point.position[0]//20) - 1) * 20,

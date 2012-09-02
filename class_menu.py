@@ -47,7 +47,7 @@ class Menu:
                          str(self.player_two_bike) + ".png"))
         self.player_two_pic = pygame.transform.rotate(self.player_two_pic, 90)
 
-    def click(self, game, button, position):
+    def click(self, game, position):
         self.check_selected(position)
         if self.screen == 1:
             if self.selected == 1:
