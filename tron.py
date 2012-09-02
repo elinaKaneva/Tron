@@ -26,7 +26,7 @@ class Starter(PygameHelper):
             - keyDown
             - mouseUp
             - mouseMotion
-            Their names are pretty clear by themselves. :)
+            Their names are pretty clear by themselves.
         3] Aftter that comes the update method.
         4] And finally, when we have all event and current condition of all
             obejcts, variables and so on, comes the draw method.
@@ -53,6 +53,7 @@ class Starter(PygameHelper):
         purple = (212, 0, 255)        
         self.p1colors = [green, yellow, blue]
         self.p2colors = [red, pink, purple]
+        self.win_cicle_center = (548, 355)
         
         PygameHelper.__init__(self, size=(self.w, self.h), fill=(white))
         self.background = pygame.image.load(os.path.join("pics",
@@ -102,8 +103,12 @@ class Starter(PygameHelper):
         
     def mouseUp(self, button, position):
         if not self.menu.screen:
-            if not self.player_one.alive or not self.player_two.alive:
-                if (position - vec2d(548, 355)).length < 18 and button == 1:
+            if not (self.player_one.alive and self.player_two.alive):
+                ''' If one of the players is dead, this part detects
+                    if it is clicked on the Window logo and if so:
+                    creates two new players and rises the speed with one.'''
+                if (position - vec2d(
+                    self.win_cicle_center)).length < 18 and button == 1:
                     if self.game_speed < self.max_speed:
                         self.game_speed += 1
                     self.player_one = Player(vec2d(100, 200),
@@ -127,17 +132,21 @@ class Starter(PygameHelper):
             self.screen.blit(self.background, (0, 0))
             self.player_one.draw(self.screen)
             self.player_two.draw(self.screen)
-            
-            if not self.player_one.alive:
-                self.screen.blit(self.win, (150, 130))
-                pygame.draw.circle(self.screen,
-                                   self.p2colors[self.player_colors[1] - 1],
-                                   (548, 355), 36, 3)
-            elif not self.player_two.alive:
-                self.screen.blit(self.win, (150, 130))
-                pygame.draw.circle(self.screen,
+
+            live = ['one', 'two']
+            for motor in live:
+                ''' Draws the win image and circles the Windows logo
+                    with the color of the winner. '''
+                if not eval("self.player_" + motor + ".alive"):
+                    self.screen.blit(self.win, (150, 130))
+                    if live.index(motor):
+                        pygame.draw.circle(self.screen,
                                    self.p1colors[self.player_colors[0] - 1],
-                                   (548, 355), 36, 3)
+                                   self.win_cicle_center, 36, 3)
+                    else:
+                        pygame.draw.circle(self.screen,
+                                   self.p2colors[self.player_colors[1] - 1],
+                                   self.win_cicle_center, 36, 3)
         else:
             self.menu.draw(self.screen)
         
