@@ -45,6 +45,14 @@ class Starter(PygameHelper):
            A  S  D   and  < v >
         '''
         white = (255,255,255)
+        green = (68, 255, 0)
+        yellow = (194, 255, 0)
+        blue = (67, 124, 227)
+        red = (255, 0, 0)
+        pink = (255, 0, 127)
+        purple = (212, 0, 255)        
+        self.p1colors = [green, yellow, blue]
+        self.p2colors = [red, pink, purple]
         
         PygameHelper.__init__(self, size=(self.w, self.h), fill=(white))
         self.background = pygame.image.load(os.path.join("pics",
@@ -122,11 +130,13 @@ class Starter(PygameHelper):
             
             if not self.player_one.alive:
                 self.screen.blit(self.win, (150, 130))
-                pygame.draw.circle(self.screen, (200, 0, 0),
+                pygame.draw.circle(self.screen,
+                                   self.p2colors[self.player_colors[1] - 1],
                                    (548, 355), 36, 3)
             elif not self.player_two.alive:
                 self.screen.blit(self.win, (150, 130))
-                pygame.draw.circle(self.screen, (0, 200, 0),
+                pygame.draw.circle(self.screen,
+                                   self.p1colors[self.player_colors[0] - 1],
                                    (548, 355), 36, 3)
         else:
             self.menu.draw(self.screen)
