@@ -59,7 +59,7 @@ class Menu:
                 self.selected = 0
                 
         elif self.screen == 2:
-            if self.selected == 201 and self.speed < 9:
+            if self.selected == 201 and self.speed < game.max_speed:
                 self.speed += 1
             elif self.selected == 202 and self.speed > 0:
                 self.speed -= 1
