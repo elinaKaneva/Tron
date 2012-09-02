@@ -1,3 +1,5 @@
+''' Main Menu class '''
+
 from pygamehelper import *
 from pygame import *
 from pygame.locals import *
@@ -26,14 +28,16 @@ class Menu:
         self.info_menu = pygame.image.load(
             os.path.join("pics", "info_menu.png"))
 
+        self.all_buttons = [1, 2, 3, 4, 211, 212, 221, 222, 201, 202, 200, 300]
         self.screen = 1
         self.selected = 0
         self.speed = 0
         self.player_one_bike = 1
         self.player_two_bike = 1
-        self.load_pics()
+        self.load_bike_pics()
 
-    def load_pics(self):
+    def load_bike_pics(self):
+        ''' Loads the different pics of bikes in the Options menu. '''
         self.player_one_pic = pygame.image.load(
             os.path.join("pics", "bike_1_" +
                          str(self.player_one_bike) + ".png"))
@@ -68,23 +72,23 @@ class Menu:
                 if self.player_one_bike == 3:
                     self.player_one_bike = 0
                 self.player_one_bike += 1
-                self.load_pics()
+                self.load_bike_pics()
             elif self.selected == 212:
                 if self.player_one_bike == 1:
                     self.player_one_bike = 4
                 self.player_one_bike -= 1
-                self.load_pics()
+                self.load_bike_pics()
                 
             elif self.selected == 221:
                 if self.player_two_bike == 3:
                     self.player_two_bike = 0
                 self.player_two_bike += 1
-                self.load_pics()
+                self.load_bike_pics()
             elif self.selected == 222:
                 if self.player_two_bike == 1:
                     self.player_two_bike = 4
                 self.player_two_bike -= 1
-                self.load_pics()
+                self.load_bike_pics()
                 
             elif self.selected == 200:
                 self.screen = 1
@@ -100,10 +104,12 @@ class Menu:
                 self.selected = 0
 
     def check_selected(self, position):
+        ''' Depending on the screen (on which menu we are),
+            detects if a button from the current menu is hovered
+            and save the which is this button. '''
         self.selected = 0
         x = position[0]
         y = position[1]
-        all_buttons = [1, 2, 3, 4, 211, 212, 221, 222, 201, 202, 200, 300]
         x_scr1 = [[120, 341], [160, 381], [200, 421], [670, 741]]
         x_scr2 = [[74, 110], [219, 255], [540, 576], [683, 719],
                   [380, 416], [380, 416], [300, 525]]
@@ -118,22 +124,22 @@ class Menu:
                 if x in range(
                     x_scr1[which][0], x_scr1[which][1]) and y in range(
                         y_scr1[which][0], y_scr1[which][1]):
-                    self.selected = all_buttons[which]
+                    self.selected = self.all_buttons[which]
         elif self.screen == 2:
             for which in range(len(x_scr2)):
                 if x in range(
                     x_scr2[which][0], x_scr2[which][1]) and y in range(
                         y_scr2[which][0], y_scr2[which][1]):
-                    self.selected = all_buttons[4:][which]
+                    self.selected = self.all_buttons[4:][which]
         elif self.screen == 3:
             if x in range(
                 x_scr3[0], x_scr3[1]) and y in range(y_scr3[0],y_scr3[1]):
-                self.selected = all_buttons[11]
+                self.selected = self.all_buttons[11]
 
     def draw(self, screen):
         if self.screen == 1:
             screen.blit(self.main_menu, (0, 0))
-            if self.selected in [1, 2, 3]:
+            if self.selected in self.all_buttons[:3]:
                 screen.blit(self.button_glow, (103 + self.selected * 40,
                                                180 + self.selected * 100))
             elif self.selected == 4:
@@ -146,10 +152,10 @@ class Menu:
             screen.blit(self.player_one_pic, (157, 210))
             screen.blit(self.player_two_pic, (622, 210))
 
-            if self.selected == 200:
+            if self.selected == self.all_buttons[10]:
                 screen.blit(self.button_glow, (323, 513))
                 
         elif self.screen == 3:
             screen.blit(self.info_menu, (0, 0))
-            if self.selected == 300:
+            if self.selected == self.all_buttons[11]:
                 screen.blit(self.button_glow, (323, 513))

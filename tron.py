@@ -106,7 +106,7 @@ class Starter(PygameHelper):
             if not (self.player_one.alive and self.player_two.alive):
                 ''' If one of the players is dead, this part detects
                     if it is clicked on the Window logo and if so:
-                    creates two new players and rises the speed with one.'''
+                    creates two new players and rises the speed with one. '''
                 if (position - vec2d(
                     self.win_cicle_center)).length < 18 and button == 1:
                     if self.game_speed < self.max_speed:
